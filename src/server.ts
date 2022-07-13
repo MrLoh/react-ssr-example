@@ -14,6 +14,11 @@ server.register(staticPlugin, {
   prefix: '/static',
 });
 
+// server.get('/*', async (req, res) => {
+//   const html: string = await readFile(path.join(__dirname, '../build/index.html'), 'utf8');
+//   res.type('text/html').send(html);
+// });
+
 server.get<{ Params: { path: string } }>('/:path', async (req, res) => {
   const startPath: string = '/' + req.params.path;
   if (!routes.find(({ path }) => path === startPath)) res.status(404);
@@ -21,7 +26,10 @@ server.get<{ Params: { path: string } }>('/:path', async (req, res) => {
   const htmlWrapper: string = await readFile(path.join(__dirname, '../build/index.html'), 'utf8');
   const appElement: ReactElement = React.createElement(App, { startPath });
   const appHtml: string = ReactDOMServer.renderToString(appElement);
-  const html: string = htmlWrapper.replace('<div id="root"></div>', `<div id="root">${appHtml}</div>`);
+  const html: string = htmlWrapper.replace(
+    '<div id="root"></div>',
+    `<div id="root">${appHtml}</div>`
+  );
 
   res.type('text/html').send(html);
 });
