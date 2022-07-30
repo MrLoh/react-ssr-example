@@ -7,3 +7,5 @@ vanilla Webpack setup.
 - To run a webpack dev server do `npm run dev`
 - To generate a bundle for SSR serving do `npm run build`
 - To start a SSR server do `npm run serve` after that
+
+You can find the accompanying presentation [here](./Presentation.pdf)
